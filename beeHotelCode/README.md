@@ -119,7 +119,7 @@ ON    H10 M15 # will start recording from 7:50am to 6:05pm
 OFF   H13 M45 # will be will be off until the next day
 ```
 
-Save this as /home/apis/wittypi/schedules/beeHotel_2023.wpi 
+Save this as /home/apis/wittypi/schedules/beeHotel_2024.wpi 
 
 ### Select custom WittyPi Schedule
 ```
