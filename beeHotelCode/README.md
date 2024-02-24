@@ -10,9 +10,9 @@ git clone https://github.com/eai6/BeeHotelMonitoring.git
 cd beHotelCode
 
 ## 2. Install dependancies using terminal
-### Install picamera
+### 2.1 Install picamera
 sudo apt install -y python3-picamera2
-### Install opencv
+### 2.2 Install opencv
 sudo apt install python3-opencv
 
 ## 3. Create program directories
@@ -28,7 +28,7 @@ sudo nano /lib/systemd/system/beeHotelRecord.service
 
 ### Paste the code below
 
-'''
+```
 [Unit]
 Description=beeHotel
 After=multi-user.target
@@ -40,18 +40,18 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
-'''
+```
 
 ### Update Deamon
 sudo systemctl daemon-reload
 
 ## 6. Test BeeHotelMonitoring Service
 
-### Start the beeHotelMonitoring Service
+### 6.1 Start the beeHotelMonitoring Service
 sudo systemctl start beeHotelRecord.service
-### Check status of service
+### 6.2 Check status of service
 sudo systemctl status beeHotelRecord.service
-### Command to stop service
+### 6.3 Command to stop service
 sudo systemctl stop beeHotelRecord.service
 
 
@@ -60,17 +60,17 @@ sudo systemctl enable beeHotelRecord.service
 
 ## 8. Set-up WittyPi
 
-### Get WittyPi
+### 8.1 Get WittyPi
 wget http://uugear.com/repo/WittyPi3/install.sh
 sudo sh install.sh
 
-### Set the recorder to launch at startup
+### 8.2 Set the recorder to launch at startup
 Open /home/apis/wittypi/afterStartup.sh In Geany
 Add the following:
 sudo python /home/apis/Desktop/beeHotelCode/driver.py
 
 
-### Test the WittyPi through 1 cycle
+### 8.3 Test the WittyPi through 1 cycle
 Open terminal 
 cd wittypi/
 sudo ./wittyPi.sh
@@ -81,14 +81,16 @@ Schedule next shutdown (6): suggest something 60 seconds before the startup like
 
 Wait for Pi to shutdown and restart 60 seconds later
 
-### Set up actual WP script
+### 8.4 Set up actual WP script
 
 Make a new file w/ Geany and paste the following:
 
+```
 BEGIN 2024-04-01 07:50:00
 END   2024-09-01 00:00:00
 ON    H10 M15 # will start recording from 7:50am to 6:05pm
 OFF   H13 M45 # will be will be off until the next day
+```
 
 Save this as /home/apis/wittypi/schedules/beeHotel_2023.wpi 
 
