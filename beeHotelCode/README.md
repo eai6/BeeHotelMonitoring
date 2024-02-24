@@ -89,7 +89,9 @@ sudo sh install.sh
 
 ### 8.2 Set the recorder to launch at startup
 Open /home/apis/wittypi/afterStartup.sh In Geany
+
 Add the following:
+
 sudo python /home/apis/Desktop/beeHotelCode/driver.py
 
 
@@ -125,6 +127,8 @@ cd wittypi/
 sudo ./wittyPi.sh
 ```
 Choose schedule script (6)
+
 Pick the beeHotel script
+
 Verify that the next power on/off times make sense
 
