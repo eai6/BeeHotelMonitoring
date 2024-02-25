@@ -8,15 +8,21 @@ Object: The object of this project is to monitor solitary bee activity in and ou
 ```
 cd ~/Desktop
 git clone https://github.com/eai6/BeeHotelMonitoring.git
-cd beHotelCode
+cd BeeHotelMonitoring/beeHotelCode
 ```
 
 ## 2. Install dependancies using terminal
-### 2.1 Install picamera
+
+### 2.1 Update and Upgrade 
+```
+sudo apt update
+sudo apt upgrade
+```
+### 2.2 Install picamera
 ```
 sudo apt install -y python3-picamera2
 ```
-### 2.2 Install opencv
+### 2.3 Install opencv
 ```
 sudo apt install python3-opencv
 ```
@@ -27,8 +33,14 @@ python3 makeDirectories.py
 ```
 
 ## 4. RunFocus to check and focus camera
+
 ```
 python3 runFocus.py
+```
+Note: Make sure the camera was connected when you turn on the Raspberry PI. If it was not connected on boot, then you should reboot the system.
+
+```
+sudo reboot
 ```
 
 ## 5. Set-up a service to run driver for monitoring
@@ -46,7 +58,7 @@ After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=/usr/bin/python /home/apis/Desktop/beeHotelCode/driver.py
+ExecStart=/usr/bin/python /home/apis/Desktop/BeeHotelMonitoring/beeHotelCode/driver.py
 Restart=always
 
 [Install]
@@ -83,6 +95,7 @@ sudo systemctl enable beeHotelRecord.service
 
 ### 8.1 Get WittyPi
 ```
+cd ~/Desktop
 wget http://uugear.com/repo/WittyPi3/install.sh
 sudo sh install.sh
 ```
@@ -92,19 +105,21 @@ Open /home/apis/wittypi/afterStartup.sh In Geany
 
 Add the following:
 
-sudo python /home/apis/Desktop/beeHotelCode/driver.py
+sudo python /home/apis/Desktop/BeeHotelMonitoring/beeHotelCode/driver.py
 
 
 ### 8.3 Test the WittyPi through 1 cycle
 Open terminal 
 ```
-cd wittypi/
+cd Desktop/wittypi/
 sudo ./wittyPi.sh
 ```
 
-Schedule next startup (5): suggest something relatively soon like ?? ??:01:00 (one minute past the next hour. Change the minute to something reasonable)
+First Select (1) to write system time to RTC on the wittiPI (i.e., assuming the time on the Raspberry PI is accurate and the time on the RTC is not. You can set this up when configuring the OS). If it is the other way around then you should select (2)
 
-Schedule next shutdown (6): suggest something 60 seconds before the startup like ?? ??:00 (at the next hour)
+Schedule next startup (4): suggest something relatively soon like ?? ??:01:00 (one minute past the next hour. Change the minute to something reasonable)
+
+Schedule next shutdown (5): suggest something 60 seconds before the startup like ?? ??:00 (at the next hour)
 
 Wait for Pi to shutdown and restart 60 seconds later
 
@@ -113,22 +128,30 @@ Wait for Pi to shutdown and restart 60 seconds later
 Make a new file w/ Geany and paste the following:
 
 ```
-BEGIN 2024-04-01 07:50:00
+BEGIN 2024-03-18 07:50:00
 END   2024-09-01 00:00:00
 ON    H10 M15 # will start recording from 7:50am to 6:05pm
 OFF   H13 M45 # will be will be off until the next day
 ```
 
-Save this as /home/apis/wittypi/schedules/beeHotel_2024.wpi 
+Save this as /home/apis/Desktop/wittypi/schedules/beeHotelSchedulor_2024.wpi 
 
 ### Select custom WittyPi Schedule
 ```
-cd wittypi/
+cd Desktop/wittypi/
 sudo ./wittyPi.sh
 ```
 Choose schedule script (6)
 
-Pick the beeHotel script
+Pick the beeHotelSchedulor script
 
 Verify that the next power on/off times make sense
+
+## 9. Set-Up VCN
+
+### 9.1 Allow VNC
+```
+sudo raspi-config
+```
+Navigate to Interfacing Options > VNC and enable VNC.
 
