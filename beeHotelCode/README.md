@@ -107,11 +107,16 @@ Add the following:
 
 sudo python /home/apis/Desktop/BeeHotelMonitoring/beeHotelCode/driver.py
 
+### 8.3 Allow IC2
+```
+supo raspi-config
+```
+Interface Options >> I5 I2C >> YES >> OK
 
 ### 8.3 Test the WittyPi through 1 cycle
 Open terminal 
 ```
-cd Desktop/wittypi/
+cd ~/Desktop/wittypi/
 sudo ./wittyPi.sh
 ```
 
@@ -134,11 +139,11 @@ ON    H10 M15 # will start recording from 7:50am to 6:05pm
 OFF   H13 M45 # will be will be off until the next day
 ```
 
-Save this as /home/apis/Desktop/wittypi/schedules/beeHotelSchedulor_2024.wpi 
+Save this as /home/apis/Desktop/wittypi/schedules/beeHotelScheduler_2024.wpi 
 
 ### Select custom WittyPi Schedule
 ```
-cd Desktop/wittypi/
+cd ~/Desktop/wittypi/
 sudo ./wittyPi.sh
 ```
 Choose schedule script (6)
@@ -155,3 +160,54 @@ sudo raspi-config
 ```
 Navigate to Interfacing Options > VNC and enable VNC.
 
+### 9.2 Sign In VNC
+1. Enter email and password
+2. Allow cloud and direct connection
+3. Authenticate with Unix password
+4. Encryption with at leat 128-bit
+5. Allow all users 
+
+
+## Set-up Wifi Access Point
+
+### Get dnsmasq and hostapd
+```
+sudo apt install dnsmasq hostapd
+```
+
+### Stop dnsmasq and hostapd until configuration is set
+```
+sudo systemctl stop dnsmasq
+sudo systemctl stop hostapd
+```
+
+### Configure static IP
+```
+sudo nano /etc/dhcpcd.conf
+```
+
+Paste the code below at the bottom
+
+```
+# Wifi Access Point Config
+interface wlan0
+static ip_address=192.168.0.10/24
+nohook wpa_supplicant
+```
+
+### Restart 
+```
+sudo service dhcpcd restart
+```
+
+### Configure DCHPC
+```
+sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
+sudo nano /etc/dnsmasq.conf
+```
+
+Paste the code below
+```
+interface=wlan0
+dhcp-range=192.168.0.11,192.168.0.30,255.255.255.0,24h
+```
