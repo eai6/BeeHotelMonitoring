@@ -109,7 +109,7 @@ sudo python /home/apis/Desktop/BeeHotelMonitoring/beeHotelCode/driver.py
 
 ### 8.3 Allow IC2
 ```
-supo raspi-config
+sudo raspi-config
 ```
 Interface Options >> I5 I2C >> YES >> OK
 
