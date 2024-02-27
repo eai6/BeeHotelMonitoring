@@ -44,6 +44,7 @@ def record():
     cam.pre_callback = apply_timestamp
     #cam.start_preview(True)
     cam.start()
+    time.sleep(2)
 #     try:
 #         cam.stop_preview()
 #         cam.start_preview(True)
