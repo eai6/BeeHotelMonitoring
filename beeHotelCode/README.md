@@ -129,8 +129,11 @@ Schedule next shutdown (5): suggest something 60 seconds before the startup like
 Wait for Pi to shutdown and restart 60 seconds later
 
 ### 8.4 Set up actual WP script
-
-Make a new file w/ Geany and paste the following:
+Create Scheduler
+```
+sudo nano /home/apis/Desktop/wittypi/schedules/beeHotelScheduler_2024.wpi
+```
+Paste the code below
 
 ```
 BEGIN 2024-03-18 07:50:00
@@ -138,8 +141,6 @@ END   2024-09-01 00:00:00
 ON    H10 M15 # will start recording from 7:50am to 6:05pm
 OFF   H13 M45 # will be will be off until the next day
 ```
-
-Save this as /home/apis/Desktop/wittypi/schedules/beeHotelScheduler_2024.wpi 
 
 ### Select custom WittyPi Schedule
 ```
