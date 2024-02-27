@@ -211,3 +211,29 @@ Paste the code below
 interface=wlan0
 dhcp-range=192.168.0.11,192.168.0.30,255.255.255.0,24h
 ```
+
+## Managing Access Point
+### Disable access point 
+```
+sudo systemctl disable hostapd dnsmasq
+```
+comment the static ip config in 
+```
+sudo nano /etc/dhcpcd.conf
+```
+Reboot
+```
+sudo reboot
+```
+### Enable access point
+```
+sudo systemctl enable hostapd dnsmasq
+```
+uncomment the static IP config in 
+```
+sudo nano /etc/dhcpcd.conf
+```
+Reboot
+```
+sudo reboot
+```
