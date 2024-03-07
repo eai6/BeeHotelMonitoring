@@ -215,6 +215,41 @@ interface=wlan0
 dhcp-range=192.168.0.11,192.168.0.30,255.255.255.0,24h
 ```
 
+
+### Configure the access point host software
+Now it is time to configure the access point software:
+
+sudo nano /etc/hostapd/hostapd.conf
+Add the below information to the configuration file:
+```
+country_code=DE
+interface=wlan0
+ssid=YOURSSID
+channel=9
+auth_algs=1
+wpa=2
+wpa_passphrase=YOURPWD
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP CCMP
+rsn_pairwise=CCMP
+```
+Make sure to change the ssid and wpa_passphrase. We now need to tell the system where to find this configuration file. Open the hostapd file:
+```
+sudo nano /etc/default/hostapd
+```
+Find the line with #DAEMON_CONF, and replace it with this:
+DAEMON_CONF="/etc/hostapd/hostapd.conf"
+
+### Start up the wireless access point
+Run the following commands to enable and start hostapd:
+
+sudo systemctl unmask hostapd
+sudo systemctl enable hostapd
+sudo systemctl start hostapd
+
+
+
+
 ## Managing Access Point
 ### Disable access point 
 ```
