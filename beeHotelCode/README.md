@@ -218,11 +218,12 @@ dhcp-range=192.168.0.11,192.168.0.30,255.255.255.0,24h
 
 ### Configure the access point host software
 Now it is time to configure the access point software:
-
+```
 sudo nano /etc/hostapd/hostapd.conf
+```
 Add the below information to the configuration file:
 ```
-country_code=DE
+country_code=US
 interface=wlan0
 ssid=YOURSSID
 channel=9
