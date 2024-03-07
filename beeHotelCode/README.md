@@ -96,7 +96,7 @@ sudo systemctl enable beeHotelRecord.service
 ### 8.1 Get WittyPi
 ```
 cd ~/Desktop
-wget http://uugear.com/repo/WittyPi3/install.sh
+wget http://uugear.com/repo/WittyPi4/install.sh
 sudo sh install.sh
 ```
 
