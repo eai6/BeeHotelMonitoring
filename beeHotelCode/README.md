@@ -101,11 +101,13 @@ sudo sh install.sh
 ```
 
 ### 8.2 Set the recorder to launch at startup
-Open /home/apis/wittypi/afterStartup.sh In Geany
-
+```
+nano /home/apis/Desktop/wittypi/afterStartup.sh 
+```
 Add the following:
-
+```
 sudo python /home/apis/Desktop/BeeHotelMonitoring/beeHotelCode/driver.py
+```
 
 ### 8.3 Allow IC2
 ```
