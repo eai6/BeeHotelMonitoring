@@ -244,12 +244,11 @@ DAEMON_CONF="/etc/hostapd/hostapd.conf"
 ### Start up the wireless access point
 Run the following commands to enable and start hostapd:
 
+```
 sudo systemctl unmask hostapd
 sudo systemctl enable hostapd
 sudo systemctl start hostapd
-
-
-
+```
 
 ## Managing Access Point
 ### Disable access point 
