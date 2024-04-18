@@ -5,6 +5,7 @@ from picamera2.encoders import H264Encoder, Quality
 import time
 import libcamera
 import cv2
+import os
 
 def seconds_till_next_hour():
     n = datetime.now()
@@ -13,6 +14,10 @@ def seconds_till_next_hour():
 def seconds_till_next_minute():
     n = datetime.now()
     return 60-n.second
+
+def seconds_till_next_2minute():
+    n = datetime.now()
+    return 60*2-n.second
 
 def seconds_till_next_10minute():
     n = datetime.now()
@@ -23,10 +28,21 @@ def record():
     now = datetime.now()
     filename = now.strftime("%Y-%m-%d_%H_%M_%S")
     fmt = '.mp4'
-    root = '/home/apis/Desktop/cameraOutput/beeHotel/'
+    root_main = '/home/apis/Desktop/cameraOutput/beeHotel/'
+    
+    root = root_main + str(now.strftime("%Y-%m-%d"))+"/"
+    
+    #print(root)
+    
+    # create folder if it does not already exist
+    if os.path.exists(root):
+        pass
+    else:
+        os.mkdir(root)
   
     cam = Picamera2()
     preview_config = cam.create_video_configuration(lores={"size":(320,240)},display="lores",transform=libcamera.Transform(vflip=1,hflip=1))
+    
     
     colour = (0, 255, 0)
     origin = (0, 30)
@@ -44,7 +60,7 @@ def record():
     cam.pre_callback = apply_timestamp
     #cam.start_preview(True)
     cam.start()
-    time.sleep(2)
+    time.sleep(1)
 #     try:
 #         cam.stop_preview()
 #         cam.start_preview(True)
@@ -61,6 +77,7 @@ def record():
         encoder = H264Encoder()
         quality = Quality.VERY_HIGH
         duration = seconds_till_next_10minute()
+        #duration = seconds_till_next_2minute()
         print(duration)
         print(filename)
         cam.start_and_record_video(output, encoder, duration = duration,quality = quality)
